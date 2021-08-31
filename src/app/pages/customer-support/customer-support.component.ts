@@ -4,7 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { CustomerSupportService } from 'src/app/shared/services/customer-support.service';
 import { AppState } from '../../store';
 import { sendingCustomerSupportMessage } from './../../store/actions/customer-support.actions';
-import { selectName } from './../../store/selector/customers-support.selectors';
+import {
+  selectCustomerSupportModel,
+  selectName,
+} from './../../store/selector/customers-support.selectors';
 
 @Component({
   selector: 'app-customer-support',
@@ -15,6 +18,7 @@ import { selectName } from './../../store/selector/customers-support.selectors';
 export class CustomerSupportComponent {
   isSendSuccess: boolean | null = null;
   readonly name$ = this.store.pipe(select(selectName));
+  readonly data$ = this.store.pipe(select(selectCustomerSupportModel));
 
   constructor(
     private customerSupportService: CustomerSupportService,
