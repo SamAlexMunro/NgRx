@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { CustomerSupportService } from 'src/app/shared/services/customer-support.service';
-import { Observable } from 'rxjs';
+import { AppState } from '../../store';
+import { sendingCustomerSupportMessage } from './../../store/actions/customer-support.actions';
 
 @Component({
   selector: 'app-customer-support',
   templateUrl: './customer-support.component.html',
   styleUrls: ['./customer-support.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerSupportComponent implements OnInit {
-  constructor(private customerSupportService: CustomerSupportService) {}
+export class CustomerSupportComponent {
+  constructor(
+    private customerSupportService: CustomerSupportService,
+    private readonly store: Store<AppState>
+  ) {}
 
   isSendSuccess: boolean | null = null;
 
-  ngOnInit(): void {}
-
   onSubmit(f: NgForm) {
-    this.customerSupportService.sendMessage(f.value).subscribe((success) => {
-      console.log(success);
-      this.isSendSuccess = success;
-    });
+    this.store.dispatch(sendingCustomerSupportMessage({ data: f.value }));
   }
 
   clearFeedback() {
