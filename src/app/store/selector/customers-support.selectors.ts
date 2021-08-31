@@ -23,8 +23,7 @@ export const selectCustomerSupportModel = createSelector(
   selectCustomerSupportFeature,
   (state: State): CustomerSupportModel => {
     return {
-      name: state.name,
-      isSentSuccess: state.isSentSuccess,
+      ...state,
     };
   }
 );

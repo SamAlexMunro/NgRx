@@ -12,6 +12,10 @@ export const sendingCustomerSupportMessage = createAction(
   props<{ data: CustomerMessage }>()
 );
 
+export const clearingCustomerSupportForm = createAction(
+  '[Customer Support Component] Clearing Customer Support Form'
+);
+
 export const sendMessageStatus = createAction(
   '[Customer Support Effect] Sending Customer Message Status',
   props<{ isSentSuccess: boolean }>()

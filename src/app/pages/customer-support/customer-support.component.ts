@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { CustomerSupportService } from 'src/app/shared/services/customer-support.service';
 import { AppState } from '../../store';
-import { sendingCustomerSupportMessage } from './../../store/actions/customer-support.actions';
+import {
+  clearingCustomerSupportForm,
+  sendingCustomerSupportMessage,
+} from './../../store/actions/customer-support.actions';
 import {
   selectCustomerSupportModel,
   selectName,
@@ -17,20 +19,17 @@ import {
 })
 export class CustomerSupportComponent {
   isSendSuccess: boolean | null = null;
+  // Old - Can remove
   readonly name$ = this.store.pipe(select(selectName));
   readonly data$ = this.store.pipe(select(selectCustomerSupportModel));
 
-  constructor(
-    private customerSupportService: CustomerSupportService,
-    private readonly store: Store<AppState>
-  ) {}
+  constructor(private readonly store: Store<AppState>) {}
 
   onSubmit(f: NgForm) {
     this.store.dispatch(sendingCustomerSupportMessage({ data: f.value }));
-    this.isSendSuccess = true;
   }
 
   clearFeedback() {
-    this.isSendSuccess = null;
+    this.store.dispatch(clearingCustomerSupportForm());
   }
 }
