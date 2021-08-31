@@ -24,6 +24,7 @@
     "@angular/router": "~9.1.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/store": "^12.4.0",
+    "@ngrx/store-devtools": "^12.4.0",
     "bootstrap": "^4.4.1",
     "bootswatch": "^4.4.1",
     "concurrently": "^5.2.0",
