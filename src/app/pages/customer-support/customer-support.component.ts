@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CustomerSupportService } from 'src/app/shared/services/customer-support.service';
 import { AppState } from '../../store';
 import { sendingCustomerSupportMessage } from './../../store/actions/customer-support.actions';
+import { selectName } from './../../store/selector/customers-support.selectors';
 
 @Component({
   selector: 'app-customer-support',
@@ -12,15 +13,17 @@ import { sendingCustomerSupportMessage } from './../../store/actions/customer-su
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerSupportComponent {
+  isSendSuccess: boolean | null = null;
+  readonly name$ = this.store.pipe(select(selectName));
+
   constructor(
     private customerSupportService: CustomerSupportService,
     private readonly store: Store<AppState>
   ) {}
 
-  isSendSuccess: boolean | null = null;
-
   onSubmit(f: NgForm) {
     this.store.dispatch(sendingCustomerSupportMessage({ data: f.value }));
+    this.isSendSuccess = true;
   }
 
   clearFeedback() {
