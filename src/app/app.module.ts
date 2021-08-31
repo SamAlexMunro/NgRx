@@ -21,6 +21,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { TopBarComponent } from './shared/top-bar/top-bar.component';
 import { metaReducers, reducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { CustomerSupportEffects } from './store/effects/customer-support.effects';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { metaReducers, reducers } from './store';
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([CustomerSupportEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
