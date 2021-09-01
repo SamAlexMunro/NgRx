@@ -9,7 +9,7 @@ export class AlertEffects {
   $checkingLoginInformation = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(AuthActions.loginSuccess, AuthActions.loginModal),
+        ofType(AuthActions.loginPage, AuthActions.loginModal),
         tap(() => {
           this.alertService.info('Checking your information');
         })
@@ -40,6 +40,20 @@ export class AlertEffects {
         ofType(AuthActions.loginFailure),
         tap(() => {
           this.alertService.danger('Unable to login');
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
+  $logout = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap(() => {
+          this.alertService.info('Logged out');
         })
       );
     },
