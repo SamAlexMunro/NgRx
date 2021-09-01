@@ -24,10 +24,10 @@ import { TopBarComponent } from './shared/top-bar/top-bar.component';
 import { metaReducers, reducers } from './store';
 import { AlertEffects } from './store/effects/alert.effects';
 import { CustomerSupportEffects } from './store/effects/customer-support.effects';
+import { LocalStorageEffects } from './store/effects/local-storage.effects';
+import { ModalEffects } from './store/effects/modal.effects';
 import { RouteEffects } from './store/effects/route.effects';
 import { SpinnerEffects } from './store/effects/spinner.effects';
-import { ModalEffects } from './store/effects/modal.effects';
-import { LocalStorageEffects } from './store/effects/local-storage.effects';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,13 @@ import { LocalStorageEffects } from './store/effects/local-storage.effects';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictStateImmutability: true,
+      },
+    }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       CustomerSupportEffects,

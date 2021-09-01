@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import * as fromAuthModels from './auth';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +13,6 @@ export class AuthService {
   //   will be done on this page. This page is designed to give a back fake data.
   /********************************************************************************** */
   baseUrl: string = 'http://localhost:3000/users/';
-
-  private userSource = new BehaviorSubject<fromAuthModels.User>(
-    fromAuthModels.UserModel
-  );
-  // user = this.userSource.asObservable();
 
   constructor(private http: HttpClient) {}
   //Fake Login API
@@ -33,9 +27,5 @@ export class AuthService {
         }
       })
     );
-  }
-
-  updatedUserSelection(user: fromAuthModels.User) {
-    this.userSource.next(user);
   }
 }
