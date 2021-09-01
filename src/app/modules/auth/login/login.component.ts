@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../resources/auth.service';
 import { NgForm } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AlertService } from 'ngx-alerts';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AppState } from '../../../store';
+import * as AuthActions from '../../../store/actions/auth.actions';
 import { MockApiCartService } from '../../cart/resources/mock-api-cart.service';
 import { User } from '../resources/auth';
+import { AuthService } from '../resources/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,8 @@ export class LoginComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private route: Router,
-    private cartService: MockApiCartService
+    private cartService: MockApiCartService,
+    private readonly store: Store<AppState>
   ) {}
 
   ngOnInit(): void {}
@@ -36,31 +40,35 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    this.spinner.show();
-    this.alertService.info('Checking your information...');
-    const observer = {
-      next: (user) => {
-        this.user = user;
-
-        this.updateShoppingCart(this.user.id);
-
-        this.authService.updatedUserSelection(this.user);
-        setTimeout(() => {
-          /** spinner ends after 5 seconds */
-          this.spinner.hide();
-          this.alertService.success(
-            'Welcome Back ' + this.user.username + ' !'
-          );
-          this.route.navigate(['/shopping/products']);
-        }, 1000);
-      },
-      error: (err) => {
-        this.alertService.danger('Unable to login');
-        this.spinner.hide();
-      },
-    };
-    this.authService
-      .login(f.value.username, f.value.password)
-      .subscribe(observer);
+    this.store.dispatch(
+      AuthActions.loginPage({
+        username: f.value.username,
+        password: f.value.password,
+      })
+    );
+    // this.spinner.show();
+    // this.alertService.info('Checking your information...');
+    // const observer = {
+    //   next: (user) => {
+    //     this.user = user;
+    //     this.updateShoppingCart(this.user.id);
+    //     this.authService.updatedUserSelection(this.user);
+    //     setTimeout(() => {
+    //       /** spinner ends after 5 seconds */
+    //       this.spinner.hide();
+    //       this.alertService.success(
+    //         'Welcome Back ' + this.user.username + ' !'
+    //       );
+    //       this.route.navigate(['/shopping/products']);
+    //     }, 1000);
+    //   },
+    //   error: (err) => {
+    //     this.alertService.danger('Unable to login');
+    //     this.spinner.hide();
+    //   },
+    // };
+    // this.authService
+    //   .login(f.value.username, f.value.password)
+    //   .subscribe(observer);
   }
 }
