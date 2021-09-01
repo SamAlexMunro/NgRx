@@ -59,7 +59,11 @@ import { SpinnerEffects } from './store/effects/spinner.effects';
       metaReducers,
       runtimeChecks: {
         strictActionImmutability: true,
+        strictActionSerializability: true,
         strictStateImmutability: true,
+        strictStateSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
       },
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
