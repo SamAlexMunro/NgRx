@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import * as fromAuthModels from './auth';
-import { of, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import * as fromAuthModels from './auth';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,6 @@ export class AuthService {
       switchMap((users) => {
         let user = users[0];
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
           return of(user);
         } else {
           return throwError('Unable to login');

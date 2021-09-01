@@ -27,6 +27,7 @@ import { CustomerSupportEffects } from './store/effects/customer-support.effects
 import { RouteEffects } from './store/effects/route.effects';
 import { SpinnerEffects } from './store/effects/spinner.effects';
 import { ModalEffects } from './store/effects/modal.effects';
+import { LocalStorageEffects } from './store/effects/local-storage.effects';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ModalEffects } from './store/effects/modal.effects';
       AlertEffects,
       RouteEffects,
       ModalEffects,
+      LocalStorageEffects,
     ]),
   ],
   providers: [],
