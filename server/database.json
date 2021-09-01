@@ -1874,7 +1874,27 @@
     {
       "id": 2,
       "userid": 1,
-      "products": []
+      "products": [
+        {
+          "id": 24,
+          "name": "Tasty Cotton Bike",
+          "description": "Est magni minus assumenda sit minus. Et recusandae consequatur incidunt excepturi sapiente.",
+          "price": "112.00",
+          "imageUrl": "https://source.unsplash.com/1600x900/?product",
+          "quantity": 67242
+        },
+        {
+          "id": 18,
+          "name": "Refined Concrete Shoes",
+          "description": "Temporibus eius veritatis rerum praesentium et. Beatae in deleniti aliquam facilis quo fuga.",
+          "price": "109.00",
+          "imageUrl": "https://source.unsplash.com/1600x900/?product",
+          "quantity": 84072
+        }
+      ],
+      "isCartEmpty": false,
+      "cartItemsLength": 1,
+      "productsSubtotal": 112
     }
   ],
   "users": [

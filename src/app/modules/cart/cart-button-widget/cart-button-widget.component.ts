@@ -6,6 +6,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Product, Cart } from '../resources/cart';
 import { take, map, first } from 'rxjs/operators';
 import { User } from 'src/app/modules/auth/resources/auth';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import { selectAuthLinksViewModel } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-cart-button-widget',
@@ -32,7 +35,8 @@ export class CartButtonWidgetComponent implements OnInit {
     private authService: AuthService,
     private cartService: MockApiCartService,
     private alertService: AlertService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private readonly store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -42,8 +46,7 @@ export class CartButtonWidgetComponent implements OnInit {
       },
       error: (err) => console.error(err),
     };
-    this.authService.user.subscribe(observer);
-
+    this.store.select(state => state.auth.user).subscribe(observer);
     if (this.user.id) {
       const observer = {
         next: (cart) => {
