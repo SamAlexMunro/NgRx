@@ -19,5 +19,18 @@ export class RouteEffects {
       dispatch: false,
     }
   );
+  rerouteToHomepage$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap(() => {
+          this.router.navigate(['/']);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
   constructor(private actions$: Actions, private readonly router: Router) {}
 }

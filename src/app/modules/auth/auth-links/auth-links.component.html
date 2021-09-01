@@ -1,22 +1,24 @@
-<div class="auth-links">
+<div *ngIf="userModel$ | async as userModel" class="auth-links">
   <a [routerLink]="['/admin/product-list']"
-     *ngIf="user?.isadmin"
+     *ngIf="userModel.isAdmin"
      class="auth-admin-link">
     <i class="fas fa-user-shield"></i>
     Admin
   </a>
   <a [routerLink]="['/shopping/products']"
-     *ngIf="!user.isadmin && user.id"
+     *ngIf="!userModel.isAdmin && userModel.isLoggedIn"
      class="user-link">
     <i class="fas fa-user"></i> User
   </a>
-  <a (click)="openModal()" *ngIf="!user.id">
+  <a (click)="openModal()" *ngIf="!userModel.isLoggedIn">
     <i class="fas fa-sign-in-alt"></i> Login Modal
   </a>
-  <a [routerLink]="['/auth/login']" *ngIf="!user.id" routerLinkActive="active">
+  <a [routerLink]="['/auth/login']"
+     *ngIf="!userModel.isLoggedIn"
+     routerLinkActive="active">
     <i class="fas fa-sign-in-alt"></i> Login Page
   </a>
-  <a (click)="logout()" *ngIf="user.id" class="auth-logout-link">
+  <a (click)="logout()" *ngIf="userModel.isLoggedIn" class="auth-logout-link">
     <i class="fas fa-sign-out-alt"></i> Logout
   </a>
 </div>

@@ -19,6 +19,15 @@ export const initialState: State = {
   error: null,
 };
 
+function clearUser() {
+  return {
+    id: null,
+    username: null,
+    email: null,
+    isadmin: null,
+  };
+}
+
 export const reducer = createReducer(
   initialState,
   on(AuthActions.loginSuccess, (state, action) => {
@@ -31,13 +40,15 @@ export const reducer = createReducer(
   on(AuthActions.loginFailure, (state, action) => {
     return {
       ...state,
-      user: {
-        id: null,
-        username: null,
-        email: null,
-        isadmin: null,
-      },
+      user: clearUser(),
       error: action.error,
+    };
+  }),
+  on(AuthActions.logout, (state) => {
+    return {
+      ...state,
+      user: clearUser(),
+      error: null,
     };
   })
 );
