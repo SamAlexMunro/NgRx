@@ -1,26 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-
-import { AuthService } from 'src/app/modules/auth/resources/auth.service';
-import { User } from 'src/app/modules/auth/resources/auth';
+import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../store';
+import { selectHeaderAuthModel } from '../../store/selectors/header.selectors';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  user: User;
+export class HeaderComponent {
+  userModel$ = this.store.pipe(select(selectHeaderAuthModel));
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    const userobserver = {
-      next: (user) => {
-        this.user = user;
-      },
-      error: (err) => console.error(err),
-    };
-
-    this.authService.user.subscribe(userobserver);
-  }
+  constructor(private readonly store: Store<AppState>) {}
 }

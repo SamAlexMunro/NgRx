@@ -18,7 +18,7 @@ export class AuthService {
   private userSource = new BehaviorSubject<fromAuthModels.User>(
     fromAuthModels.UserModel
   );
-  user = this.userSource.asObservable();
+  // user = this.userSource.asObservable();
 
   constructor(private http: HttpClient) {}
   //Fake Login API

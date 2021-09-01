@@ -11,17 +11,20 @@ export interface AuthLinksViewModel {
 
 export const selectIsLoggedIn = createSelector(
   selectAuthState,
-  (state: fromAuth.State): boolean => {
-    return state.user.id !== null;
-  }
+  (state: fromAuth.State): boolean => state.user.id !== null
+);
+
+export const selectIsAdmin = createSelector(
+  selectAuthState,
+  (state: fromAuth.State): boolean => state.user.isadmin
 );
 
 export const selectAuthLinksViewModel = createSelector(
-  selectAuthState,
+  selectIsAdmin,
   selectIsLoggedIn,
-  (state: fromAuth.State, isLoggedIn): AuthLinksViewModel => {
+  (isAdmin, isLoggedIn): AuthLinksViewModel => {
     return {
-      isAdmin: state.user.isadmin,
+      isAdmin,
       isLoggedIn,
     };
   }
