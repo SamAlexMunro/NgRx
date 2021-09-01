@@ -1,7 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngrx/effects';
+import { Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { tap } from 'rxjs/operators';
+import * as AuthActions from '../actions/auth.actions';
 
 @Injectable()
 export class RouteEffects {
-  constructor(private actions$: Actions) {}
+  rerouteToProductsPage$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        tap(() => {
+          this.router.navigate(['/shopping/products']);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+  constructor(private actions$: Actions, private readonly router: Router) {}
 }
