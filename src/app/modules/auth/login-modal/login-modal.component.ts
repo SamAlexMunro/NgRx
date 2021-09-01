@@ -49,6 +49,7 @@ export class LoginModalComponent implements OnInit {
         password: f.value.password,
       })
     );
+    // TODO(Munro): Make a service utilising the behaviour here and the behaviour implement in alert, modal, route and spinner effects.
     // this.spinner.show();
     // this.alertService.info('Checking your information...');
     // const observer = {
