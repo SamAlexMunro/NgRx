@@ -46,7 +46,7 @@ export class CartButtonWidgetComponent implements OnInit {
       },
       error: (err) => console.error(err),
     };
-    this.store.select(state => state.auth.user).subscribe(observer);
+    this.store.select(state => state.auth.user).pipe(take(1)).subscribe(observer);
     if (this.user.id) {
       const observer = {
         next: (cart) => {
