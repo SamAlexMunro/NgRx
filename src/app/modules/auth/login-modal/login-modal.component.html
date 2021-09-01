@@ -1,0 +1,48 @@
+<div class="modal-body text-center">
+  <div class="row">
+    <div class="login-form mt-5 col-md-8 offset-2">
+      <h3>Login</h3>
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="usernamelogin">Username</label>
+          <input #username
+                 class="form-control"
+                 id="usernamelogin"
+                 name="username"
+                 ngModel
+                 placeholder="user or admin"
+                 required
+                 type="text" />
+        </div>
+        <div class="form-group">
+          <label for="passwordlogin">Password</label>
+          <input #password
+                 autocomplete
+                 class="form-control"
+                 id="passwordlogin"
+                 name="password"
+                 ngModel
+                 placeholder="Password"
+                 required
+                 type="password" />
+        </div>
+        <button (click)="cancel()"
+                class="btn btn-secondary btn-lg"
+                type="button">
+          <span>
+            Cancel
+            <i class="fas fa-arrow-left"></i>
+          </span>
+        </button>
+        <button [disabled]="f.invalid"
+                class="btn btn-primary btn-lg"
+                type="submit">
+          <span>
+            Login
+            <i class="fas fa-sign-in-alt"></i>
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
