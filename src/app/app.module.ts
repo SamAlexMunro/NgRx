@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AlertModule } from 'ngx-alerts';
@@ -21,8 +22,10 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { TopBarComponent } from './shared/top-bar/top-bar.component';
 import { metaReducers, reducers } from './store';
-import { EffectsModule } from '@ngrx/effects';
+import { AlertEffects } from './store/effects/alert.effects';
 import { CustomerSupportEffects } from './store/effects/customer-support.effects';
+import { RouteEffects } from './store/effects/route.effects';
+import { SpinnerEffects } from './store/effects/spinner.effects';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,12 @@ import { CustomerSupportEffects } from './store/effects/customer-support.effects
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([CustomerSupportEffects]),
+    EffectsModule.forRoot([
+      CustomerSupportEffects,
+      SpinnerEffects,
+      AlertEffects,
+      RouteEffects,
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
