@@ -9,9 +9,10 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
 import { SharedModule } from '../shared/shared.module';
 
 import { RouterModule } from '@angular/router';
+import { CustomerSupportVanillaComponent } from './customer-support-vanilla/customer-support-vanilla.component';
 
 @NgModule({
-  declarations: [NotFoundComponent, HomeComponent, CustomerSupportComponent],
+  declarations: [NotFoundComponent, HomeComponent, CustomerSupportComponent, CustomerSupportVanillaComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
